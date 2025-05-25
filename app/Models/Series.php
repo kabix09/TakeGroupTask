@@ -4,7 +4,46 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="Series",
+ *     type="object",
+ *     title="Series",
+ *     required={"id", "name", "tmdb_id"},
+ *
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="tmdb_id", type="integer", example=2261),
+ *
+ *     @OA\Property(property="name", type="string", example="The Tonight Show Starring Johnny Carson"),
+ *     @OA\Property(property="original_name", type="string", example="The Tonight Show Starring Johnny Carson"),
+ *     @OA\Property(property="overview", type="string", example="Opis serialu..."),
+ *     @OA\Property(property="original_language", type="string", example="en"),
+ *
+ *     @OA\Property(property="first_air_date", type="string", format="date", example="1962-10-01"),
+ *     @OA\Property(property="poster_path", type="string", example="/uSvET5YUvHNDIeoCpErrbSmasFb.jpg"),
+ *     @OA\Property(property="backdrop_path", type="string", example="/qFfWFwfaEHzDLWLuttWiYq7Poy2.jpg"),
+ *
+ *     @OA\Property(property="popularity", type="number", format="float", example=688.2477),
+ *     @OA\Property(property="vote_average", type="number", format="float", example=7.463),
+ *     @OA\Property(property="vote_count", type="integer", example=81),
+ *
+ *     @OA\Property(property="adult", type="boolean", example=false),
+ *
+ *     @OA\Property(
+ *         property="origin_countries",
+ *         type="array",
+ *         @OA\Items(type="string", example="US")
+ *     ),
+ *
+ *     @OA\Property(
+ *         property="genres",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/Genre")
+ *     )
+ * )
+ */
 final class Series extends Model
 {
     protected $fillable = [

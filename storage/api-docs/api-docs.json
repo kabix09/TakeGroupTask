@@ -1,0 +1,395 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Takegroup TMDB API",
+        "description": "Dokumentacja API aplikacji",
+        "contact": {
+            "email": "kabix.009@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Środowisko lokalne"
+        }
+    ],
+    "paths": {
+        "/api/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get list of genres",
+                "description": "Returns list of genres",
+                "operationId": "getGenresList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Genre"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/genres/{id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "getGenreDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Genre detail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get list of movies",
+                "description": "Returns list of movies with genres",
+                "operationId": "getMoviesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Movie"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/movies/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "operationId": "getMovieDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie detail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Movie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/series": {
+            "get": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Get list of TV series",
+                "description": "Returns list of TV series with genres",
+                "operationId": "getSeriesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Series"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/series/{id}": {
+            "get": {
+                "tags": [
+                    "Series"
+                ],
+                "operationId": "getSeriesDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Series detail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Series"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Genre": {
+                "title": "Genre",
+                "required": [
+                    "id",
+                    "name",
+                    "source",
+                    "tmdb_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Horror"
+                    },
+                    "source": {
+                        "type": "string",
+                        "enum": [
+                            "movie",
+                            "tv"
+                        ],
+                        "example": "movie"
+                    },
+                    "tmdb_id": {
+                        "type": "integer",
+                        "example": 27
+                    }
+                },
+                "type": "object"
+            },
+            "Movie": {
+                "title": "Movie",
+                "required": [
+                    "id",
+                    "title",
+                    "tmdb_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tmdb_id": {
+                        "type": "integer",
+                        "example": 574475
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Final Destination Bloodlines"
+                    },
+                    "original_title": {
+                        "type": "string",
+                        "example": "Final Destination Bloodlines"
+                    },
+                    "overview": {
+                        "type": "string",
+                        "example": "Plagued by a violent recurring nightmare, college student Stefanie..."
+                    },
+                    "original_language": {
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "release_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-05-09"
+                    },
+                    "poster_path": {
+                        "type": "string",
+                        "example": "/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg"
+                    },
+                    "backdrop_path": {
+                        "type": "string",
+                        "example": "/j0NUh5irX7q2jIRtbLo8TZyRn6y.jpg"
+                    },
+                    "popularity": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 551.0284
+                    },
+                    "vote_average": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 7.117
+                    },
+                    "vote_count": {
+                        "type": "integer",
+                        "example": 356
+                    },
+                    "adult": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "video": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "genres": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Genre"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Series": {
+                "title": "Series",
+                "required": [
+                    "id",
+                    "name",
+                    "tmdb_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tmdb_id": {
+                        "type": "integer",
+                        "example": 2261
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "The Tonight Show Starring Johnny Carson"
+                    },
+                    "original_name": {
+                        "type": "string",
+                        "example": "The Tonight Show Starring Johnny Carson"
+                    },
+                    "overview": {
+                        "type": "string",
+                        "example": "Opis serialu..."
+                    },
+                    "original_language": {
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "first_air_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "1962-10-01"
+                    },
+                    "poster_path": {
+                        "type": "string",
+                        "example": "/uSvET5YUvHNDIeoCpErrbSmasFb.jpg"
+                    },
+                    "backdrop_path": {
+                        "type": "string",
+                        "example": "/qFfWFwfaEHzDLWLuttWiYq7Poy2.jpg"
+                    },
+                    "popularity": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 688.2477
+                    },
+                    "vote_average": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 7.463
+                    },
+                    "vote_count": {
+                        "type": "integer",
+                        "example": 81
+                    },
+                    "adult": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "origin_countries": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "US"
+                        }
+                    },
+                    "genres": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Genre"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Genres",
+            "description": "Genres"
+        },
+        {
+            "name": "Movies",
+            "description": "Movies"
+        },
+        {
+            "name": "Series",
+            "description": "Series"
+        }
+    ]
+}

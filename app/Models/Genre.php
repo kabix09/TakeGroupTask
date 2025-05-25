@@ -4,7 +4,21 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="Genre",
+ *     type="object",
+ *     title="Genre",
+ *     required={"id", "name", "source", "tmdb_id"},
+
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Horror"),
+ *     @OA\Property(property="source", type="string", enum={"movie", "tv"}, example="movie"),
+ *     @OA\Property(property="tmdb_id", type="integer", example=27)
+ * )
+ */
 final class Genre extends Model
 {
     protected $fillable = [
