@@ -5,7 +5,7 @@ namespace App\Services;
 
 use App\DTO\GenreDto;
 use App\DTO\MovieDto;
-use App\DTO\SerieDto;
+use App\DTO\SeriesDto;
 use App\Enums\GenreSourceEnum;
 use App\Services\Request\HttpRequest;
 
@@ -60,7 +60,7 @@ final class TmdbRequestService
             }
 
             foreach ($response['results'] as $serie) {
-                $series[] = SerieDto::fromApiResponse($serie);
+                $series[] = SeriesDto::fromApiResponse($serie);
 
                 if (count($series) >= $limit) {
                     break;
