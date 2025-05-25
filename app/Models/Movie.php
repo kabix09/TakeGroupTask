@@ -62,4 +62,69 @@ final class Movie extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getOriginalTitle(): string
+    {
+        return $this->original_title;
+    }
+
+    public function getOverview(): ?string
+    {
+        return $this->overview;
+    }
+
+    public function getOriginalLanguage(): string
+    {
+        return $this->original_language;
+    }
+
+    public function getReleaseDate(): ?\Illuminate\Support\Carbon
+    {
+        return $this->release_date;
+    }
+
+    public function getPosterPath(): ?string
+    {
+        return $this->poster_path;
+    }
+
+    public function getBackdropPath(): ?string
+    {
+        return $this->backdrop_path;
+    }
+
+    public function getPopularity(): float
+    {
+        return $this->popularity;
+    }
+
+    public function getVoteAverage(): float
+    {
+        return $this->vote_average;
+    }
+
+    public function getVoteCount(): int
+    {
+        return $this->vote_count;
+    }
+
+    public function isAdult(): bool
+    {
+        return $this->adult;
+    }
+
+    public function hasVideo(): bool
+    {
+        return $this->video;
+    }
+
+    public function getTmdbId(): int
+    {
+        return $this->tmdb_id;
+    }
 }

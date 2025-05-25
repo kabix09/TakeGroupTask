@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Series;
+use App\Services\Translate\GoogleTranslate;
+use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 final class SeriesController extends Controller
@@ -27,8 +29,8 @@ final class SeriesController extends Controller
      */
     public function index()
     {
-        $movies = Series::with('genres')->get();
-        return response()->json($movies);
+        $series = Series::with('genres')->get();
+        return response()->json($series);
     }
 
     /**
@@ -37,12 +39,19 @@ final class SeriesController extends Controller
      *     operationId="getSeriesDetail",
      *     tags={"Series"},
      *     @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          required=true,
-     *          description="ID of the movie",
-     *          @OA\Schema(type="integer", example=1)
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the movie",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         description="Optional language code (e.g., 'pl', 'de', 'en')",
+     *         @OA\Schema(type="string", example="pl")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Series detail",
@@ -50,9 +59,13 @@ final class SeriesController extends Controller
      *     )
      * )
      */
-    public function get(int $id)
+    public function get(Request $request, int $id)
     {
-        $movie = Series::with('genres')->findOrFail($id);
-        return response()->json($movie);
+        $language = $request->query('language', 'en');
+
+        $series = Series::with('genres')->findOrFail($id);
+        $series = GoogleTranslate::seriesTranslate($series, $language);
+
+        return response()->json($series);
     }
 }

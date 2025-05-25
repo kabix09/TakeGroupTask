@@ -56,6 +56,16 @@
                             "type": "integer",
                             "example": 1
                         }
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Optional language code (e.g., 'pl', 'de', 'en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pl"
+                        }
                     }
                 ],
                 "responses": {
@@ -113,6 +123,16 @@
                             "type": "integer",
                             "example": 1
                         }
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Optional language code (e.g., 'pl', 'de', 'en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pl"
+                        }
                     }
                 ],
                 "responses": {
@@ -169,6 +189,16 @@
                         "schema": {
                             "type": "integer",
                             "example": 1
+                        }
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Optional language code (e.g., 'pl', 'de', 'en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pl"
                         }
                     }
                 ],

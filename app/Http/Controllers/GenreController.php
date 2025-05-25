@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use App\Services\Translate\GoogleTranslate;
+use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 final class GenreController extends Controller
@@ -37,12 +39,19 @@ final class GenreController extends Controller
      *     operationId="getGenreDetail",
      *     tags={"Genres"},
      *     @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          required=true,
-     *          description="ID of the movie",
-     *          @OA\Schema(type="integer", example=1)
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the movie",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         description="Optional language code (e.g., 'pl', 'de', 'en')",
+     *         @OA\Schema(type="string", example="pl")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Genre detail",
@@ -50,9 +59,13 @@ final class GenreController extends Controller
      *     )
      * )
      */
-    public function get(int $id)
+    public function get(Request $request, int $id)
     {
+        $language = $request->query('language', 'en');
+
         $genre = Genre::findOrFail($id);
+        $genre = GoogleTranslate::genreTranslate($genre, $language);
+
         return response()->json($genre);
     }
 }

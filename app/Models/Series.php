@@ -67,4 +67,72 @@ final class Series extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getOriginalName(): string
+    {
+        return $this->original_name;
+    }
+
+    public function getOverview(): ?string
+    {
+        return $this->overview;
+    }
+
+    public function getOriginalLanguage(): string
+    {
+        return $this->original_language;
+    }
+
+    public function getFirstAirDate(): ?\Illuminate\Support\Carbon
+    {
+        return $this->first_air_date;
+    }
+
+    public function getPosterPath(): ?string
+    {
+        return $this->poster_path;
+    }
+
+    public function getBackdropPath(): ?string
+    {
+        return $this->backdrop_path;
+    }
+
+    public function getPopularity(): float
+    {
+        return $this->popularity;
+    }
+
+    public function getVoteAverage(): float
+    {
+        return $this->vote_average;
+    }
+
+    public function getVoteCount(): int
+    {
+        return $this->vote_count;
+    }
+
+    public function isAdult(): bool
+    {
+        return $this->adult;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOriginCountries(): array
+    {
+        return $this->origin_countries ?? [];
+    }
+
+    public function getTmdbId(): int
+    {
+        return $this->tmdb_id;
+    }
 }

@@ -36,4 +36,24 @@ final class Genre extends Model
     {
         return $this->belongsToMany(Series::class);
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getSource(): string
+    {
+        return $this->source;
+    }
+
+    public function getTmdbId(): int
+    {
+        return $this->tmdb_id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Services\Translate\GoogleTranslate;
+use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 final class MovieController extends Controller
@@ -43,6 +45,13 @@ final class MovieController extends Controller
      *         description="ID of the movie",
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         description="Optional language code (e.g., 'pl', 'de', 'en')",
+     *         @OA\Schema(type="string", example="pl")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Movie detail",
@@ -50,9 +59,13 @@ final class MovieController extends Controller
      *     )
      * )
      */
-    public function get(int $id)
+    public function get(Request $request, int $id)
     {
+        $language = $request->query('language', 'en');
+
         $movie = Movie::with('genres')->findOrFail($id);
+        $movie = GoogleTranslate::movieTranslate($movie, $language);
+
         return response()->json($movie);
     }
 }
