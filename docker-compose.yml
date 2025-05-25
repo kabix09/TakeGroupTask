@@ -1,0 +1,20 @@
+services:
+    db:
+        hostname: db
+        image: postgres:16.1
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=secret
+            - POSTGRES_DB=homestead
+            - POSTGRES_USER=homestead
+        volumes:
+            - postgresdata:/var/lib/postgresql/data
+
+    adminer:
+        image: adminer
+        ports:
+            - "8081:8080"
+
+volumes:
+    postgresdata:
