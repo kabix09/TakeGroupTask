@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services;
@@ -14,7 +15,8 @@ class TmdbImportService
         private GenreRepository $genreRepo,
         private MovieRepository $movieRepo,
         private SeriesRepository $seriesRepo,
-    ) {}
+    ) {
+    }
 
     public function importSeriesGenres(): int
     {

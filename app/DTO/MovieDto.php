@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DTO;
@@ -20,7 +21,8 @@ final class MovieDto
         public readonly bool $adult,
         public readonly bool $video,
         public readonly array $genreIds,
-    ) {}
+    ) {
+    }
 
     public static function fromApiResponse(array $data): self
     {

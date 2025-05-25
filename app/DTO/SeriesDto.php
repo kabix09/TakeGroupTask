@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DTO;
@@ -20,7 +21,8 @@ final class SeriesDto
         public readonly bool $adult,
         public readonly array $genreIds,
         public readonly array $originCountries,
-    ) {}
+    ) {
+    }
 
     public static function fromApiResponse(array $data): self
     {
