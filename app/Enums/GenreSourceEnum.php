@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum GenreEnum: string
+enum GenreSourceEnum: string
 {
-
+    case MOVIE = 'movie';
+    case TV = 'tv';
 }

@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\DTO\GenreDto;
+use App\DTO\MovieDto;
+use App\DTO\SerieDto;
+use App\Enums\GenreSourceEnum;
 use App\Services\Request\HttpRequest;
 
 final class TmdbRequestService
@@ -30,8 +34,11 @@ final class TmdbRequestService
             }
 
             foreach ($response['results'] as $movie) {
-                $movies[] = $movie;
-                if (count($movies) >= $limit) break;
+                $movies[] = MovieDto::fromApiResponse($movie);
+
+                if (count($movies) >= $limit) {
+                    break;
+                }
             }
 
             $page++;
@@ -53,8 +60,11 @@ final class TmdbRequestService
             }
 
             foreach ($response['results'] as $serie) {
-                $series[] = $serie;
-                if (count($series) >= $limit) break;
+                $series[] = SerieDto::fromApiResponse($serie);
+
+                if (count($series) >= $limit) {
+                    break;
+                }
             }
 
             $page++;
@@ -65,11 +75,25 @@ final class TmdbRequestService
 
     public function getMovieGenres(): array
     {
-        return $this->request->get(self::MOVIE_GENRES_ENDPOINT);
+        $genres = [];
+        $response = $this->request->get(self::MOVIE_GENRES_ENDPOINT);
+
+        foreach ($response['genres'] as $genre) {
+            $genres[] = GenreDto::fromApiResponse($genre, GenreSourceEnum::MOVIE);
+        }
+
+        return $genres;
     }
 
     public function getTvShowGenres(): array
     {
-        return $this->request->get(self::TV_GENRES_ENDPOINT);
+        $genres = [];
+        $response = $this->request->get(self::TV_GENRES_ENDPOINT);
+
+        foreach ($response['genres'] as $genre) {
+            $genres[] = GenreDto::fromApiResponse($genre, GenreSourceEnum::MOVIE);
+        }
+
+        return $genres;
     }
 }
