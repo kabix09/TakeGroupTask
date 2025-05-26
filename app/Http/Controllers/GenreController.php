@@ -18,6 +18,13 @@ final class GenreController extends Controller
      *     tags={"Genres"},
      *     summary="Get list of genres",
      *     description="Returns list of genres",
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         description="Optional language code (e.g., 'pl', 'de', 'en')",
+     *         @OA\Schema(type="string", example="pl")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -28,9 +35,15 @@ final class GenreController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
+        $language = $request->query('language', 'en');
+
         $genres = Genre::all();
+        foreach ($genres as $genre) {
+            $genre = GoogleTranslate::genreTranslate($genre, $language);
+        }
+
         return response()->json($genres);
     }
 

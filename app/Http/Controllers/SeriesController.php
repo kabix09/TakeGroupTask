@@ -28,9 +28,15 @@ final class SeriesController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
+        $language = $request->query('language', 'en');
+
         $series = Series::with('genres')->get();
+        foreach ($series as $serie) {
+            $serie = GoogleTranslate::seriesTranslate($serie, $language);
+        }
+
         return response()->json($series);
     }
 

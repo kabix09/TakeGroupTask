@@ -18,6 +18,13 @@ final class MovieController extends Controller
      *     tags={"Movies"},
      *     summary="Get list of movies",
      *     description="Returns list of movies with genres",
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         required=false,
+     *         description="Optional language code (e.g., 'pl', 'de', 'en')",
+     *         @OA\Schema(type="string", example="pl")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -28,9 +35,15 @@ final class MovieController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
+        $language = $request->query('language', 'en');
+
         $movies = Movie::with('genres')->get();
+        foreach ($movies as $movie) {
+            $movie = GoogleTranslate::movieTranslate($movie, $language);
+        }
+
         return response()->json($movies);
     }
 

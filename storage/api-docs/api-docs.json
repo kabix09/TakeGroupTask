@@ -23,6 +23,18 @@
                 "summary": "Get list of genres",
                 "description": "Returns list of genres",
                 "operationId": "getGenresList",
+                "parameters": [
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Optional language code (e.g., 'pl', 'de', 'en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pl"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -90,6 +102,18 @@
                 "summary": "Get list of movies",
                 "description": "Returns list of movies with genres",
                 "operationId": "getMoviesList",
+                "parameters": [
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Optional language code (e.g., 'pl', 'de', 'en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "pl"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
